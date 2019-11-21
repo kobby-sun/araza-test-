@@ -1,4 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
+
+export interface ICourse extends Document {
+  id: string; //Ids can be the mongo generated ones. 
+  name: string;
+  type: "chemistry" | "math" | "english";
+}
+
+export interface IStudent extends Document {
+  id: string;
+  name: string;
+  courses: [ICourse['_id']];
+}
 
 export const StudentSchema = new mongoose.Schema(
   {
@@ -35,6 +47,6 @@ CourseSchema.set('toJSON', {
   }
 });
 
-export const Student = mongoose.model('Student', StudentSchema);
+export const Student = mongoose.model<IStudent>('Student', StudentSchema);
 
-export const Course = mongoose.model('Course', CourseSchema);
+export const Course = mongoose.model<ICourse>('Course', CourseSchema);

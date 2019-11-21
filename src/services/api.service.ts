@@ -22,11 +22,15 @@ export class ApiService {
   }
 
   public getStudent(req: Request, res: Response) {
-    Student.findOne({ id: req.params.id }, (error: Error, pokemon: any) => {
+    Student.findOne({ id: req.params.id }, (error: Error, student: any) => {
       if (error) {
         res.send(error);
       }
-      res.json(pokemon);
+      if (student == null) {
+        res.status(404).send('Not found');
+      } else {
+        res.json(student);
+      }
     });
   }
 
@@ -55,14 +59,18 @@ export class ApiService {
     Course.findByIdAndUpdate(
       courseId,
       { name: req.body.name },
-      (error: Error, pokemon: any) => {
+      (error: Error, course: any) => {
         if (error) {
           res.send(error);
         }
-        const message = pokemon
+        const message = course
           ? 'Updated successfully'
           : 'Course not found :(';
-        res.send(message);
+
+        if (course == null)
+          res.status(404).send(message);
+        else
+          res.status(200).send(message);
       }
     );
   }
@@ -83,7 +91,10 @@ export class ApiService {
         res.send(error);
       }
       const message = deleted ? 'Deleted successfully' : 'Course not found :(';
-      res.status(200).send(message);
+      if (deleted)
+        res.status(200).send(message);
+      else
+        res.status(404).send(message);
     });
   }
 
@@ -94,7 +105,10 @@ export class ApiService {
         res.send(error);
       }
       const message = deleted ? 'Deleted successfully' : 'Student not found :(';
-      res.status(200).send(message);
+      if (deleted)
+        res.status(200).send(message);
+      else
+        res.status(404).send(message);
     });
   }
 }

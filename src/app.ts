@@ -3,14 +3,17 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import { Controller } from "./main.controller";
 import mongoose from "mongoose";
-class App {
+
+export default class {
   public app: any;
   public apiController: Controller;
 
-  constructor() {
+  constructor(setMongo: Boolean = true) {
     this.app = express();
     this._setConfig();
-    this._setMongoConfig();
+
+    if (setMongo)
+      this._setMongoConfig();
 
     this.apiController = new Controller(this.app);
   }
@@ -28,5 +31,3 @@ class App {
     });
   }
 }
-
-export default new App().app;
