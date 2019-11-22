@@ -1,4 +1,4 @@
-const request = require('supertest')
+import request from 'supertest';
 import mongoose, { Schema } from 'mongoose';
 import globalConfig from '../globalConfig.json';
 import App from "./app";
@@ -30,7 +30,7 @@ describe('Api Endpoints', () => {
             .send({
                 name: 'James'
             })
-        expect(res.statusCode).toEqual(200)
+        expect(res.status).toEqual(200)
         expect(res.body).toMatchObject({
             name: 'James'
         })
@@ -40,7 +40,7 @@ describe('Api Endpoints', () => {
         const res = await request(app)
             .get('/students')
             .send()
-        expect(res.statusCode).toEqual(200)
+        expect(res.status).toEqual(200)
         expect(res.body).toEqual([])
     })
 
@@ -58,7 +58,7 @@ describe('Api Endpoints', () => {
         const res = await request(app)
             .get('/students')
             .send()
-        expect(res.statusCode).toEqual(200)
+        expect(res.status).toEqual(200)
         expect(res.body).toMatchObject([{
             name: 'James'
         },
@@ -72,7 +72,7 @@ describe('Api Endpoints', () => {
             .send({
                 name: 'Computer Programming'
             })
-        expect(res.statusCode).toEqual(200)
+        expect(res.status).toEqual(200)
         expect(res.body).toMatchObject({
             name: 'Computer Programming'
         })
