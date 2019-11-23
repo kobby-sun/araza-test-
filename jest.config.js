@@ -2,6 +2,7 @@ module.exports = {
     globalSetup: './setup',
     globalTeardown: './teardown.js',
     testEnvironment: './mongo-environment.js',
+    setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
     transform: {
         '^.+\\.jsx?$': 'babel-jest',
         '^.+\\.ts?$': 'ts-jest'

@@ -6,21 +6,6 @@ import globalConfig from '../../globalConfig.json';
 
 describe('Model Test', () => {
 
-    // It's just so easy to connect to the MongoDB Memory Server 
-    // By using mongoose.connect
-    beforeAll(async () => {
-        await mongoose.connect(globalConfig.mongoUri, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-        });
-    });
-
-    afterAll(async () => {
-        await mongoose.disconnect();
-    });
-
     it('create & save Course successfully', async () => {
         const validCourse = new Course(courseData);
         const saveCourse = await validCourse.save();

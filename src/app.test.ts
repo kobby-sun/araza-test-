@@ -6,23 +6,6 @@ import App from "./app";
 var app = new App(false).app;
 
 describe('Api Endpoints', () => {
-    beforeEach(async () => {
-        await mongoose.connect(globalConfig.mongoUri, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
-            if (err) {
-                console.error(err);
-                process.exit(1);
-            }
-        });
-
-        const collections = await mongoose.connection.db.listCollections().toArray();
-        await collections
-            .map(({ name }) => name)
-            .map(collection => mongoose.connection.db.collection(collection).drop())
-    });
-
-    afterEach(async () => {
-        await mongoose.disconnect();
-    });
 
     it('should create a new student', async () => {
         const res = await request(app)
