@@ -6,7 +6,7 @@ import App from "./app";
 var app = new App(false).app;
 
 describe('Api Endpoints', () => {
-    beforeAll(async () => {
+    beforeEach(async () => {
         await mongoose.connect(globalConfig.mongoUri, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
             if (err) {
                 console.error(err);
@@ -20,7 +20,7 @@ describe('Api Endpoints', () => {
             .map(collection => mongoose.connection.db.collection(collection).drop())
     });
 
-    afterAll(async () => {
+    afterEach(async () => {
         await mongoose.disconnect();
     });
 
